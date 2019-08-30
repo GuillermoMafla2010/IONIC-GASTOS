@@ -8,7 +8,7 @@ import {HttpClient} from '@angular/common/http';
 })
 export class CategoriaingresoService {
 
-  private url="http://localhost:8000/api/categoriasingresos"
+  private url="https://escuelajailuba.website/gastos/personal/api/categoriasingresos"//"http://localhost:8000/api/categoriasingresos"
   constructor(private http:HttpClient) { }
 
   getcategorias():Observable<any>{

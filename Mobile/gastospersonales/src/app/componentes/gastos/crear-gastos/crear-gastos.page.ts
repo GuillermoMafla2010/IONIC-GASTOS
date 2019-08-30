@@ -35,7 +35,7 @@ export class CrearGastosPage implements OnInit {
 
   async presentToast() {
     const toast = await this.toastController.create({
-      message: 'Your settings have been saved.',
+      message: 'Se agrego el gasto',
        duration:1000
     });
     toast.present();
@@ -47,17 +47,24 @@ export class CrearGastosPage implements OnInit {
     this.gastoservice.postGasto(this.gasto).subscribe(x=>{
       console.log(x)
       
-        
+      this.gastoservice.notificarPost.emit(this.gasto)
     this.router.navigate(['tabs/ver-gastos'])
-    this.gastoservice.notificarPost.emit(this.gasto)
-        
+    
+        this.gasto.user_id=null;
+        this.gasto.nombre_gasto="";
+        this.gasto.fecha="";
+        this.gasto.cantidad_gasto=null;
+        this.gasto.categoria_id=null
+
       this.presentToast()
 
-      this.gasto=new Gastos()
+      
+    
 
       
 
     })
+
     
     
   }

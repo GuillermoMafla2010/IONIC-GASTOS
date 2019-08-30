@@ -18,5 +18,8 @@ class Usuarios extends Model
         return $this->hasMany(Gastos::class,'user_id');
     }
 
+    public function cuentas(){
+        return $this->hasMany(Cuentas::class,'user_id');
+    }
 
 }

@@ -1,4 +1,10 @@
+import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { Gastos } from './../../modelos/Gastos';
+import { GastosService } from './../../servicios/gastos.service';
+import { IngresosService } from './../../servicios/ingresos.service';
 import { UsuariosService } from './../../servicios/usuarios.service';
+//import {StatusBar} from '@ionic-native/status-bar'
+
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -9,65 +15,68 @@ import { Component, OnInit } from '@angular/core';
 export class UsuariosPage implements OnInit {
 
   public usuarios
-  public totalgastos=[]
-   public parcialgastos=[]
-  public totalingresos=[]
-  public parcialingresos=[]
-  public sumagastos=0
-  public sumaingresos=0
-  constructor(private usuarioservice:UsuariosService) { }
+  
+  public sumagastos=0.0
+  public sumaingresos=0.0
+  constructor(private usuarioservice:UsuariosService,
+              private gastoservice:GastosService,
+              private ingresoservice:IngresosService,
+              private statusbar:StatusBar) {
+
+                this.statusbar.backgroundColorByHexString('#428bca')
+               }
 
   ngOnInit() {
-    this.getUsuarios()
+    this.getUsuarios();
+    
+    this.gastoservice.notificarPost.subscribe(()=>{
+        this.getUsuarios()
+    })
+
+    this.gastoservice.notificarUpdate.subscribe(()=>{
+      this.getUsuarios()
+    })
+
+    this.gastoservice.notificarDelete.subscribe((pos)=>{
+      console.log(pos)
+      this.getUsuarios()
+    })
+
+    this.ingresoservice.notificarPost.subscribe(()=>{
+      this.getUsuarios()
+    })
+
+    this.ingresoservice.notificarUpdate.subscribe(()=>{
+      this.getUsuarios()
+    })
+    
+    this.ingresoservice.notificarDelete.subscribe((pos)=>{
+      this.getUsuarios()
+      console.log(pos)
+    })
+
+    
   }
 
  getUsuarios(){
     this.usuarioservice.getUsuariosPorId(1).subscribe(x=>{
-      x.map(y=>{this.usuarios=y;
-        this.totalgastos=y.gastos;
-        this.totalingresos=y.ingresos})
+      console.log(x)
+     x.usuario.map(y=>{
+       this.usuarios=y
+       
+     })
+      this.sumaingresos=x.totalingreso
+      this.sumagastos=x.totalgasto
+    console.log(this.usuarios)
 
-        this.totalgastos.map(x=>{
-         this.parcialgastos.push(x.cantidad_gasto)
-        })
-
-        this.totalingresos.map(x=>{
-          this.parcialingresos.push(x.cantidad_ingreso)
-         })
-
-         for(let i=0;i<this.parcialgastos.length;i++){
-          this.sumagastos=this.sumagastos+this.parcialgastos[i]
-    
-        }
-
-
-        for(let i=0;i<this.totalingresos.length;i++){
-          this.sumaingresos=this.sumaingresos+this.parcialingresos[i]
-    
-        }
      
-     
-      console.log(this.usuarios)
-      console.log(this.totalgastos)
-      console.log(this.totalingresos)
-      console.log(this.parcialgastos)
-      console.log(this.parcialingresos)
-      console.log(this.sumagastos)
-      console.log(this.sumaingresos)
     })
 
-
-
-
     
-    
-
-    console.log(this.totalgastos)
-
-   
-   
-
 
 }
+
+
+    
 
 }

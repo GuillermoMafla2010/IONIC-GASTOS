@@ -23,7 +23,7 @@ export class GastosPage implements OnInit {
   }
 
   verGastosPorFecha(){
-    this.router.navigate(['ver-gastos-fecha'])
+    this.router.navigate(['tabs/ver-gastos-fecha'])
   }
 
 }

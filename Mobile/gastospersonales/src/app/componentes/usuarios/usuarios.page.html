@@ -1,6 +1,6 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>usuarios</ion-title>
+<ion-header color="primary">
+  <ion-toolbar color="primary">
+    <ion-title class="centrado">Usuarios</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -26,15 +26,15 @@
       <ion-list-header>Registro Total</ion-list-header>
       <ion-item>
         <ion-label>Ingresos</ion-label>
-        <ion-badge color="success" slot="end">{{sumaingresos}}</ion-badge>
+        <ion-badge color="success" slot="end"> $ {{sumaingresos | number:"1.0-2"}}</ion-badge>
       </ion-item>
       <ion-item>
         <ion-label>Gastos</ion-label>
-        <ion-badge color="danger" slot="end">{{sumagastos}}</ion-badge>
+        <ion-badge color="danger" slot="end">$ {{sumagastos | number:"1.0-2" }}</ion-badge>
       </ion-item>
       <ion-item>
           <ion-label>Total</ion-label>
-          <ion-badge color="secondary" slot="end">{{sumaingresos-sumagastos}}</ion-badge>
+          <ion-badge color="secondary" slot="end">$ {{sumaingresos-sumagastos | number:"1.0-2"}}</ion-badge>
         </ion-item>
     </ion-list>
 

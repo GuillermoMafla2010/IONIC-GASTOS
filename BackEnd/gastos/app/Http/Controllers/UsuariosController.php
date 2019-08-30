@@ -102,7 +102,44 @@ class UsuariosController extends Controller
     public function show($id)
     {
         //
-        return Usuarios::with(['ingresos','gastos'])->where('id',$id)->get();
+        $ingresos1=[];
+        $ingresos2=[];
+        $sumaingresos=0.0;
+        $gastos1=[];
+        $gastos2=[];
+        $sumagastos=0.0;
+        $usuario= Usuarios::with(['ingresos','gastos'])->where('id',$id)->get();
+
+        foreach($usuario as $item){
+           //
+           $ingresos1=$item->ingresos;
+            //
+        }
+
+        foreach($usuario as $item){
+            $gastos1=$item->gastos;
+        }
+
+        for($i=0;$i<count($ingresos1);$i++){
+            array_push($ingresos2,$ingresos1[$i]->cantidad_ingreso);
+            $sumaingresos=$sumaingresos+$ingresos2[$i];
+
+        }
+
+        for($i=0;$i<count($gastos1);$i++){
+            array_push($gastos2,$gastos1[$i]->cantidad_gasto);
+            $sumagastos=$sumagastos+$gastos2[$i];
+
+        }
+
+        $data=[
+            "usuario"=>$usuario,
+            "totalingreso"=>$sumaingresos,
+            "totalgasto"=>$sumagastos
+        ];
+
+        return response()->json($data);
+
     }
 
     /**

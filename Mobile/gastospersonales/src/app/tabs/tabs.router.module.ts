@@ -37,6 +37,74 @@ const routes: Routes = [
           }
         ]
       },
+
+      {
+        path: 'ahorros',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../componentes/ahorros/ahorros/ahorros.module').then(m => m.AhorrosPageModule)
+          }
+        ]
+      },
+
+      {
+        path: 'opcionesahorros/:id',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../componentes/ahorros/ahorros-opciones/ahorros-opciones.module').then(m => m.AhorrosOpcionesPageModule)
+          }
+        ]
+      },
+
+      {
+        path: 'ahorrosingresos/:id',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../componentes/ahorros/ahorros-veringresos/ahorros-veringresos.module').then(m=>m.AhorrosVeringresosPageModule)
+          }
+        ]
+      },
+
+      {
+        path: 'ahorrosgastos/:id',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../componentes/ahorros/ahorros-vergastos/ahorros-vergastos.module').then(m=>m.AhorrosVergastosPageModule)
+          }
+        ]
+      },
+
+      
+      {
+        path: 'crearahorroingreso/:id',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../componentes/ahorros/ahorros-crear/ahorros-crear.module').then(m=>m.AhorrosCrearPageModule)
+          }
+        ]
+      },
+
+      {
+        path: 'crearahorrogasto/:id',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../componentes/ahorros/ahorros-creargasto/ahorros-creargasto.module').then(m=>m.AhorrosCreargastoPageModule)
+          }
+        ]
+      },
+      
       {
         path: 'crear-gastos',
         children: [
@@ -94,6 +162,26 @@ const routes: Routes = [
             path: '',
             loadChildren: () =>
               import('../componentes/gastos/ver-gastos/ver-gastos.module').then(m => m.VerGastosPageModule)
+          }
+        ]
+      },
+      {
+        path: 'ver-gastos-fecha',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../componentes/gastos/ver-gastos-fecha/ver-gastos-fecha.module').then(m => m.VerGastosFechaPageModule)
+          }
+        ]
+      },
+      {
+        path: 'ver-ingresos-fecha',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../componentes/ingresos/ver-ingresos-fecha/ver-ingresos-fecha.module').then(m => m.VerIngresosFechaPageModule)
           }
         ]
       },

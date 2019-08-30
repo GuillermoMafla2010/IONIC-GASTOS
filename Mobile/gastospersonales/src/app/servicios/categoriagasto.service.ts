@@ -8,7 +8,7 @@ import {Observable} from 'rxjs';
 })
 export class CategoriagastoService {
 
-  private url="http://localhost:8000/api/categoriasgastos"
+  private url="https://escuelajailuba.website/gastos/personal/api/categoriasgastos"//"http://localhost:8000/api/categoriasgastos"
   constructor(private http:HttpClient) { }
 
   getcategorias():Observable<any>{

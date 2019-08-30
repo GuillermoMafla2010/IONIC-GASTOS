@@ -14,7 +14,7 @@ import { AlertController } from '@ionic/angular';
 export class VerIngresosPage implements OnInit {
 
   public ingresos=[]
-  public total=[]
+  
   public suma=0
   constructor(private ingresoservice:IngresosService,public router:Router,public alertController: AlertController) { }
 
@@ -22,14 +22,15 @@ export class VerIngresosPage implements OnInit {
     
     this.getIngresos()
     this.ingresoservice.notificarUpdate.subscribe(update=>{
-      console.log(update)
+      /*console.log(update)
       this.ingresos=this.ingresos.map(original=>{
         console.log(original)
         if(update.id==original.id){
           original=update
         }
         return original
-      })
+      })*/
+      this.getIngresos()
     })
 
     this.ingresoservice.notificarPost.subscribe(post=>{
@@ -37,31 +38,16 @@ export class VerIngresosPage implements OnInit {
     })
 
     
+
+    
   }
 
   getIngresos(){
     
       this.ingresoservice.getIngresos(1).subscribe(x=>{
-       this.ingresos=x
-       console.log(x)
-
-         this.ingresos.map(x=>{
-          this.total.push(x.cantidad_ingreso)
-          
-          
-        }) 
-
-        console.log(this.total)
-
-         for(let i=0;i<this.total.length;i++){
-          this.suma=this.suma+this.total[i]
-        }
-        console.log(this.suma) 
-        
-       
-        
+        this.ingresos=x.ingresos
+        this.suma=x.suma
       })
-
       
 
       
@@ -84,7 +70,9 @@ export class VerIngresosPage implements OnInit {
           handler: () => {
             console.log('Confirm Okay');
             this.ingresoservice.deleteIngreso(id).subscribe(x=>{
+              console.log(x)
               this.getIngresos()
+              this.ingresoservice.notificarDelete.emit(this.ingresos)
             })
           }
         }
@@ -104,6 +92,7 @@ export class VerIngresosPage implements OnInit {
   delete(id){
     console.log(id)
     this.presentAlertConfirm(id)
+    
     
     
     

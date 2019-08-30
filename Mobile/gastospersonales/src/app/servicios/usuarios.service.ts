@@ -8,7 +8,7 @@ import {HttpClient} from '@angular/common/http';
 })
 export class UsuariosService {
 
-  private url="http://localhost:8000/api/users"
+  private url="https://escuelajailuba.website/gastos/personal/api/users"//"http://localhost:8000/api/users"//"https://escuelajailuba.website/gastos/api/users"//
   constructor(private http:HttpClient) { }
 
   getUsuariosPorId(id:number):Observable<any>{

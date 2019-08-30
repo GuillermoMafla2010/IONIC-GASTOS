@@ -26,6 +26,12 @@ Route::group(['middleware'=>['cors',/*'jwt.auth'*/]],function(){
      Route::resource('gastos','GastosController');
      Route::resource('categoriasgastos','CategoriasGastosController');
      Route::resource('categoriasingresos','CategoriasIngresosController');
+     Route::resource('cuentas','CuentasController');
+     Route::resource('bancos','BancosController');
+     Route::resource('cingresos','CingresosController');
+     Route::resource('cgastos','CgastosController');
     Route::get('vergasto/{id}','GastosController@vergasto');
     Route::get('veringreso/{id}','IngresosController@veringreso');
+    Route::get('verfechaingresos/{id}/{fecha_inicio}/{fecha_fin}/{categoria}','IngresosController@verfechas');
+    Route::get('verfechagastos/{id}/{fecha_inicio}/{fecha_fin}/{categoria}','GastosController@verfechas');
 });

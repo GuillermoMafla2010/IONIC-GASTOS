@@ -1,3 +1,4 @@
+import { Gastos } from './../../../modelos/Gastos';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GastosService } from './../../../servicios/gastos.service';
 
@@ -12,7 +13,9 @@ import { AlertController } from '@ionic/angular';
 })
 export class VerGastosPage implements OnInit {
 
-  public gastos=[]
+  public parcialgastos=[]
+  public totalgastos=0.0
+  public gastos:any
   constructor(private gastoservice:GastosService,
     private router:Router,
     private activatedroute:ActivatedRoute,
@@ -21,23 +24,37 @@ export class VerGastosPage implements OnInit {
 
   ngOnInit() {
     this.getGastos()
+
     this.gastoservice.notificarUpdate.subscribe(update=>{
-      console.log(update)
+      /*console.log(update)
       this.gastos=this.gastos.map(original=>{
         console.log(original)
         if(update.id==original.id){
           original=update
         }
         return original
-      })
+      })*/
+      this.getGastos()
     })
 
     this.gastoservice.notificarPost.subscribe(post=>{
-      console.log(post)
+    
+      
+  
+      
+
+      
      this.getGastos()
       
       
     })
+
+   
+
+
+
+
+  
   }
 
 
@@ -57,8 +74,9 @@ export class VerGastosPage implements OnInit {
           text: 'Aceptar',
           handler: () => {
             this.gastoservice.deleteGasto(id).subscribe(x=>{
-              console.log("Eliminado Gasto")
+              console.log(x)
               this.getGastos()
+              this.gastoservice.notificarDelete.emit(this.gastos);
             })
           }
         }
@@ -71,12 +89,17 @@ export class VerGastosPage implements OnInit {
 
 
   getGastos(){
+    
     this.gastoservice.getGastos(1).subscribe(x=>{
-      this.gastos=x
-      console.log(this.gastos)
-     
+      this.gastos=x.gastos
+      this.totalgastos=x.suma
     })
+
+    
+    
   }
+
+ 
 
   update(id){
     console.log(id)
@@ -90,5 +113,8 @@ export class VerGastosPage implements OnInit {
     
     
   }
+
+
+  
 
 }

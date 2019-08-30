@@ -1,5 +1,7 @@
 {
   "name": "gastospersonales",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

@@ -22,7 +22,7 @@ export class IngresosPage implements OnInit {
   }
 
   verIngresosPorFecha(){
-    this.router.navigate(['ver-ingresos-fecha'])
+    this.router.navigate(['tabs/ver-ingresos-fecha'])
   }
 
 }

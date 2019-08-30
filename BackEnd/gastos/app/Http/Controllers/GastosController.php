@@ -15,7 +15,27 @@ class GastosController extends Controller
     public function index()
     {
         //
-        return Gastos::with(['usuarios','categorias'])->get();
+        $gastos=[];
+        $suma=0.0;
+
+
+        $gasto=Gastos::with(['usuarios','categorias'])->get();
+        for($i=0;$i<count($gasto);$i++){
+                array_push($gastos,$gasto[$i]->cantidad_gasto);
+
+        }
+
+        for($i=0;$i<count($gastos);$i++){
+            $suma=$suma+$gastos[$i];
+        }
+
+        $data=[
+            "gastos"=>$gasto,
+            "suma"=>$suma
+
+        ];
+
+        return response()->json($data);
     }
 
 
@@ -68,13 +88,34 @@ class GastosController extends Controller
     public function show($id)
     {
         //
-        return Gastos::where('user_id',$id)->with(['usuarios','categorias'])->orderBy('id','desc')->get();
+        $gastos=[];
+        $suma=0.0;
+
+        $gasto= Gastos::where('user_id',$id)->with(['usuarios','categorias'])->orderBy('id','desc')->get();
+
+        for($i=0;$i<count($gasto);$i++){
+            array_push($gastos,$gasto[$i]->cantidad_gasto);
+
+    }
+
+    for($i=0;$i<count($gastos);$i++){
+        $suma=$suma+$gastos[$i];
+    }
+
+    $data=[
+        "gastos"=>$gasto,
+        "suma"=>$suma
+
+    ];
+
+    return response()->json($data);
     }
 
     public function vergasto($id)
     {
         //
         return Gastos::where('id',$id)->with(['usuarios','categorias'])->get();
+
     }
     /**
      * Show the form for editing the specified resource.
@@ -125,5 +166,38 @@ class GastosController extends Controller
         //
          Gastos::where('id',$id)->delete();
          return response()->json("Se ha borrado el gasto");
+    }
+
+
+    public function verfechas($id,$fecha_inicio,$fecha_fin,$categoria){
+        $data=[];
+$suma=0.0;
+
+            $dato=Gastos::with(['usuarios','categorias'])->where("user_id",$id)->whereBetween('fecha',[$fecha_inicio,$fecha_fin])->get();
+            foreach($dato as $item){
+
+                if($categoria==0){
+                    array_push($data,$item);
+                }
+                else if($item->categoria_id==$categoria){
+                    array_push($data,$item);
+                }
+
+            }
+            for($i=0;$i<count($data);$i++){
+                $suma=$suma+$data[$i]->cantidad_gasto;
+            }
+
+            $data_json=[
+                "data"=>$data,
+                "suma"=>$suma
+            ];
+
+
+            return response()->json($data_json);
+
+
+
+
     }
 }

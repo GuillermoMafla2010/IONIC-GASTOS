@@ -10,10 +10,12 @@ import {Observable} from 'rxjs';
 })
 export class GastosService {
   
-  private url="http://localhost:8000/api/gastos"
-  private url1="http://localhost:8000/api/vergasto"
+  private url="https://escuelajailuba.website/gastos/personal/api/gastos"//"http://localhost:8000/api/gastos"//"https://escuelajailuba.website/gastos/api/gastos"
+  private url1="https://escuelajailuba.website/gastos/personal/api/vergasto"//"http://localhost:8000/api/vergasto"//"https://escuelajailuba.website/gastos/api/vergasto"
+  public url2="https://escuelajailuba.website/gastos/personal/api/verfechagastos"//"http://localhost:8000/api/verfechagastos";
   private _notificarUpdate = new EventEmitter<any>();
   private _notificarPost = new EventEmitter<any>();
+  private _notificarDelete = new EventEmitter<any>();
 
   constructor(private http:HttpClient) { }
   private gasto:Gastos
@@ -24,6 +26,10 @@ export class GastosService {
 
   get notificarPost():EventEmitter<any>{
     return this._notificarPost
+  }
+
+  get notificarDelete():EventEmitter<any>{
+    return this._notificarDelete
   }
 
 
@@ -47,6 +53,12 @@ export class GastosService {
   deleteGasto(id){
     return this.http.delete<any>(`${this.url}/${id}`)
   }
+
+  getfechas(id,fecha_inicio,fecha_fin,categoria){
+    return this.http.get<any>(`${this.url2}/${id}/${fecha_inicio}/${fecha_fin}/${categoria}`);
+  }
+
+
 
 
 }
