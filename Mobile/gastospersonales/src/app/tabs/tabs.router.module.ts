@@ -50,6 +50,17 @@ const routes: Routes = [
       },
 
       {
+        path: 'deudas',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../componentes/deudas/deudas.module').then(m => m.DeudasPageModule)
+          }
+        ]
+      },
+
+      {
         path: 'opcionesahorros/:id',
         children: [
           {
@@ -126,6 +137,16 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'crear-deuda',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('../componentes/deudas/crear-deuda/crear-deuda.module').then(m => m.CrearDeudaPageModule)
+          }
+        ]
+      },
+      {
         path: 'ver-ingresos',
         children: [
           {
@@ -185,6 +206,8 @@ const routes: Routes = [
           }
         ]
       },
+
+      
       {
         path: '',
         redirectTo: '/tabs/usuarios',

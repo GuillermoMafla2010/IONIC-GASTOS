@@ -22,4 +22,8 @@ class Usuarios extends Model
         return $this->hasMany(Cuentas::class,'user_id');
     }
 
+    public function deudas(){
+        return $this->hasMany(Duedas::class,'usuario_id');
+    }
+
 }

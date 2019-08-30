@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="centrado">Deudas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list *ngFor="let item of deuda ">
+    <ion-item>
+      <ion-label class="letra"> {{item.nombre_deuda}} </ion-label>  
+      <ion-badge color="success" slot="end">$ {{item.cantidad | number:"1.0-2"}}</ion-badge>
+    </ion-item>
+  </ion-list>
+
+  <ion-fab-button color="primary" class="boton" (click)="creardeuda()">+</ion-fab-button>
+
+</ion-content>
